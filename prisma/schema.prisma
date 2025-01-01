@@ -27,6 +27,8 @@ model User{
   sender Transaction[] @relation("senderToTransaction")
   reciever Transaction[] @relation("recieverToTransaction")
   creditLogs CreditLogs[] @relation("userToCreditLog")
+  notifications Notification[] @relation("userToNotification")
+  cart Cart[] @relation("userToCart")
 }
 
 model Coupon{
@@ -43,6 +45,7 @@ model Coupon{
   verified Boolean @default(false)
   seller User @relation(fields: [ownerId], references: [id],name: "sellerToCoupon")
   buyer User? @relation(fields: [buyerId], references: [id],name: "buyerToCoupon")
+  cart Cart[] @relation("couponToCart")
 }
 
 model Wallet {
@@ -67,4 +70,21 @@ model CreditLogs{
   amount Int
   userId Int
   user User @relation(fields: [userId],references: [id],name: "userToCreditLog")
+}
+
+model Notification {
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields: [userId], references: [id],name: "userToNotification")
+  read Boolean @default(false)
+  message String
+  url String?
+}
+
+model Cart {
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields: [userId], references: [id],name: "userToCart")
+  couponId Int
+  coupon Coupon @relation(fields: [couponId], references: [id],name: "couponToCart")
 }
