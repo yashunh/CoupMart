@@ -9,6 +9,8 @@ router.post("/signup/email")
 
 router.get("/signin")
 
+router.put("/otp")
+
 router.put("/forgotPassword")
 
 router.put("changeAvatar")

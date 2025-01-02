@@ -19,6 +19,7 @@ model User{
   password String
   email String? @unique
   number String? @unique
+  authenticated Boolean @default(false)
   avatarId Int
   avatar Avatar @relation(fields: [avatarId],references: [id])
   seller Coupon[] @relation("sellerToCoupon")
@@ -29,6 +30,7 @@ model User{
   creditLogs CreditLogs[] @relation("userToCreditLog")
   notifications Notification[] @relation("userToNotification")
   cart Cart[] @relation("userToCart")
+  otp Otp? @relation("userToOtp")
 }
 
 model Coupon{
@@ -87,4 +89,11 @@ model Cart {
   user User @relation(fields: [userId], references: [id],name: "userToCart")
   couponId Int
   coupon Coupon @relation(fields: [couponId], references: [id],name: "couponToCart")
+}
+
+model Otp {
+  id Int @id @default(autoincrement())
+  otp  String
+  userId Int @unique
+  user User @relation(fields: [userId],references: [id], name: "userToOtp")
 }
