@@ -16,13 +16,15 @@ export const signinBody = zod.object({
 export const signupWithEmailBody = zod.object({
     email: emailSchema,
     username: usernameSchema,
-    password: passwordSchema
+    password: passwordSchema,
+    avatarId: zod.number()
 })
 
 export const signupWithNumberBody = zod.object({
     number: numeberSchema,
     username: usernameSchema,
-    password: passwordSchema
+    password: passwordSchema,
+    avatarId: zod.number()
 })
 
 export const otpBody = zod.object({
